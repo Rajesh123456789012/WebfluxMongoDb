@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Profile("!local")
 public class FileUploadService {
 
     @Autowired
@@ -40,7 +42,7 @@ public class FileUploadService {
         List<Employee> employeeArrayList = new ArrayList<>();
         XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(bytes));
         XSSFSheet worksheet = workbook.getSheetAt(0);
-        log.info("worksheet {} ", worksheet);
+       // log.info("worksheet {} ", worksheet);
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Employee employee = new Employee();
 
@@ -60,7 +62,7 @@ public class FileUploadService {
             employeeArrayList.add(employee);
 
         }
-        log.info("Data {}", employeeArrayList);
+        //log.info("Data {}", employeeArrayList);
         return Flux.fromIterable(employeeArrayList).flatMap(bpn -> employeeService.saveEmployee(bpn));
     }
 

@@ -5,6 +5,7 @@ import com.info.entity.Employee;
 import com.info.exception.EmployeeException;
 import com.info.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 
 @Service
+@Profile("!local")
 public class EmployeeService {
 
 	@Autowired
@@ -25,8 +27,6 @@ public class EmployeeService {
 	@Autowired
 	private ReactiveMongoTemplate reactiveMongoTemplate;
 
-	// @Autowired
-	// private MongoOperations mongoOperations;
 
 	public Mono<Employee> saveEmployee(Employee emp) throws EmployeeException {
 		System.out.println("IN Service");

@@ -1,7 +1,9 @@
 package com.info.entity;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Profile("!local")
 @Document
 public class Employee {
 

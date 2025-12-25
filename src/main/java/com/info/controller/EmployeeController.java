@@ -4,12 +4,14 @@ package com.info.controller;
 import com.info.entity.Employee;
 import com.info.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/employee")
+@Profile("!local")
 public class EmployeeController {
 
 	@Autowired
